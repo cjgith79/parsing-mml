@@ -7,9 +7,13 @@ class ResultMML(object):
     """docstring for ResultMML"""
     pattern_command = re.compile('MML Command-----(.*)')
     pattern_ne = re.compile('NE : (.*)')
+    pattern_executed_time_stamp = re.compile(
+        '(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})')
+
     # pattern_ne = re.compile('Report : +++    (.*)')
     # pattern_ne = re.compile('Report : +++    (.*?)')
     # 'Report : +++    (.*?)(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})')
+
 
     def __init__(self, command):
         super(ResultMML, self).__init__()
@@ -32,8 +36,15 @@ class ResultMML(object):
             if match:
                 self.ne = match.group(1)
 
+    def executed_time_stamp_search(self, line):
+        if not self.executed_time_stamp:
+            match = ResultMML.pattern_executed_time_stamp.search(line)
+            if match:
+                self.executed_time_stamp = match.group(1)
+
     def fields_search(self, line):
         self.ne_search(line)
+        self.executed_time_stamp_search(line)
 
     def __str__(self):
         message = (

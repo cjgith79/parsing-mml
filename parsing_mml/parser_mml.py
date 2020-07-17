@@ -15,6 +15,7 @@ def mml_parser(file_path):
     # ----------------------
     with open(file_path) as fp:
         for line in fp:
+            # line = ''.join(c for c in line_ if ord(c) < 128)
             # -------------------------------------------------------
 
             command_ = result_mml.command_search(line)
