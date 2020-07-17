@@ -9,6 +9,7 @@ class ResultMML(object):
     pattern_ne = re.compile('NE : (.*)')
     pattern_executed_time_stamp = re.compile(
         '(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})')
+    pattern_o_m_id = re.compile('O&M    #(.*)')
 
     # pattern_ne = re.compile('Report : +++    (.*)')
     # pattern_ne = re.compile('Report : +++    (.*?)')
@@ -42,9 +43,16 @@ class ResultMML(object):
             if match:
                 self.executed_time_stamp = match.group(1)
 
+    def o_m_id_search(self, line):
+        if not self.o_m_id:
+            match = ResultMML.pattern_o_m_id.search(line)
+            if match:
+                self.o_m_id = match.group(1)
+
     def fields_search(self, line):
         self.ne_search(line)
         self.executed_time_stamp_search(line)
+        self.o_m_id_search(line)
 
     def __str__(self):
         message = (
