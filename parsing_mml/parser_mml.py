@@ -5,11 +5,21 @@
 
 import argparse
 
+from result_mml import ResultMML
+
 def mml_parser(file_path):
-    print(file_path)
+    # print(file_path)
     count = 0
+    # ----------------------
+    resul_mml = ResultMML()
+    # ----------------------
     with open(file_path) as fp:
         for line in fp:
+            # -------------------------------------------------------
+            resul_mml.command_search(line)
+            if resul_mml.command:
+                print(f"command[{resul_mml.command}]")
+            # -------------------------------------------------------
             count += 1
             print("Line{}: {}".format(count, line.strip()))
 
