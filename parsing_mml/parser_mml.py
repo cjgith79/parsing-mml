@@ -9,26 +9,20 @@ from result_mml import ResultMML
 
 def mml_parser(file_path):
     # print(file_path)
-    count = 0
-    # ----------------------
+    # count = 0
     result_mml = ResultMML(None)
-    # ----------------------
     with open(file_path) as fp:
         for line in fp:
-            # line = ''.join(c for c in line_ if ord(c) < 128)
-            # -------------------------------------------------------
-
             command_ = result_mml.command_search(line)
             if command_:
-                print(result_mml) # yield maybe
+                if result_mml.command:
+                    print(result_mml) # yield maybe
                 result_mml = ResultMML(command_)
-
             result_mml.fields_search(line)
-
-
-            # -------------------------------------------------------
-            count += 1
-            print("Line{}: {}".format(count, line.strip()))
+            # count += 1
+            # print("Line{}: {}".format(count, line.strip()))
+    if result_mml.command:
+        print(result_mml) # yield maybe
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='File to process')

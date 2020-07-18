@@ -12,14 +12,8 @@ class ResultMML(object):
     pattern_o_m_id = re.compile('O&M    #(.*)')
     pattern_result = re.compile('RETCODE = 0  Operation succeeded(.*)')
 
-    # pattern_ne = re.compile('Report : +++    (.*)')
-    # pattern_ne = re.compile('Report : +++    (.*?)')
-    # 'Report : +++    (.*?)(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})')
-
-
     def __init__(self, command):
         super(ResultMML, self).__init__()
-        # self.command_line_number = None
         self.command = command
         self.ne = None
         self.executed_time_stamp = None
