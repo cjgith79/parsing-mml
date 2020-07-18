@@ -8,6 +8,11 @@ import argparse
 from result_mml import ResultMML
 
 def mml_parser(file_path):
+    '''
+    This program receives a MML file that contains the results
+    of commands executed over U2020 and print all ResultMML
+    objects found.
+    '''
     # print(file_path)
     # count = 0
     result_mml = ResultMML(None)
