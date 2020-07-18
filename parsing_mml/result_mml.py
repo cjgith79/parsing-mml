@@ -10,6 +10,7 @@ class ResultMML(object):
     pattern_executed_time_stamp = re.compile(
         '(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})')
     pattern_o_m_id = re.compile('O&M    #(.*)')
+    pattern_result = re.compile('RETCODE = 0  Operation succeeded(.*)')
 
     # pattern_ne = re.compile('Report : +++    (.*)')
     # pattern_ne = re.compile('Report : +++    (.*?)')
@@ -49,10 +50,19 @@ class ResultMML(object):
             if match:
                 self.o_m_id = match.group(1)
 
+    def result_search(self, line):
+        if not self.result:
+            match = ResultMML.pattern_result.search(line)
+            if match:
+                self.result = True
+            else:
+                self.result = False
+
     def fields_search(self, line):
         self.ne_search(line)
         self.executed_time_stamp_search(line)
         self.o_m_id_search(line)
+        self.result_search(line)
 
     def __str__(self):
         message = (
